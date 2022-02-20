@@ -5,31 +5,75 @@ export default class App extends Component {
   state = {   
         n1:null,
         n2:null,    
-        result:null 
+        result:null,
+        sinal: null
       }
 
   remover = () => { 
-    this.setState(
-      {result: this.state.n1 - this.state.n2
-      })
-    }
+    if (this.state.n1 && this.state.n2 !== "null" || "") {
+    this.setState({
+      result: this.state.n1 - this.state.n2,
+      sinal: "-"
+    })
+  }else {
+    this.setState({
+      result: "Digite um valor"
+    })
+  } 
+  
+ }
+ 
 
   add = () => { 
-    this.setState({result: this.state.n1 + this.state.n2 })}
-
+     if (this.state.n1 && this.state.n2 !== "null" || "") {
+    this.setState({
+      result: this.state.n1 + this.state.n2,
+      sinal: "+"
+    })
+  }else {
+    this.setState({
+      result: "Digite um valor"
+    })
+  } 
+  
+ }
+ 
   multi = () => { 
-    this.setState({result: this.state.n1 * this.state.n2})
-  }
+    if (this.state.n1 && this.state.n2 !== "null" || "") {
+    this.setState({
+      result: this.state.n1 * this.state.n2,
+      sinal: "*"
+    })
+  }else {
+    this.setState({
+      result: "Digite um valor"
+    })
+  } 
+  
+ }
+ 
 
   dividir = () => { 
-    this.setState({result: this.state.n1 / this.state.n2})
-  }
-
-   zerar = () => {this.setState({
-    n1:null,
-    n2:null,    
-    result:null})}
-
+    if (this.state.n1 && this.state.n2 !== "null" || "") {
+    this.setState({
+      result: this.state.n1 / this.state.n2,
+      sinal: "/"
+    })
+  }else {
+    this.setState({
+      result: "Digite um valor"
+    })
+  } 
+  
+ }
+ 
+  zerar = () => {this.setState({
+    n1:"",
+    n2:"", 
+    sinal: "",   
+    result:null
+  })}
+    
   
  
    handleChangeN1 = (e) => { 
@@ -43,22 +87,23 @@ export default class App extends Component {
          n2: Number(e.target.value)
          })
         }
-
+        
 
    render() {
-    let {result} = this.state
+   
+    
     return(
       <div ClassName="calculos">
         
         <div ClassName="calcular">
           <h1>React Calc App</h1>
-         <h2>{result}</h2>
-          <input type="number" onChange={this.handleChangeN1}/> 
-
-
-          <input type="number" onChange={this.handleChangeN2}/> 
-        </div>
-                  
+         
+          <input  onChange={this.handleChangeN1} value={this.state.n1} placeholder= "0"/> 
+          <h3>{this.state.sinal}</h3>
+          <input onChange={this.handleChangeN2} value={this.state.n2} placeholder= "0"/> 
+          <h3>=</h3>
+          <h2>{this.state.result}</h2>
+        </div>                 
 
       <div ClassName="calculo">        
               
@@ -67,7 +112,8 @@ export default class App extends Component {
         <button onClick={this.multi}>*</button>
         <button onClick={this.dividir}>/</button>
         <button onClick={this.zerar}>C</button>
-      </div> </div>
+      </div> 
+      </div>
       
      )}
 }
